@@ -107,7 +107,12 @@ check_include_file_cxx(postgresql/libpq-fe.h HAS_POSTGRES)
 if (HAS_POSTGRES)
     add_definitions(-DHAS_POSTGRES)
 else()
-    message("No libpq-fe.h file found. Postgres driver disabled")
+    check_include_file_cxx(libpq-fe.h HAS_POSTGRES)
+    if (HAS_POSTGRES)
+        add_definitions(-DHAS_POSTGRES)
+    else()
+        message("No libpq-fe.h file found. Postgres driver disabled")
+    endif()
 endif()
 
 
